@@ -4,7 +4,7 @@ language: cpp
 # Betriebssystem
 dist: bionic
 
-# Test definieren
+# Test-Szenarien definieren in "matrix"
 matrix:
   include: 
     - name: "Linux"
@@ -24,7 +24,10 @@ matrix:
       os: osx
       osx_image: xcode10
       env:
+        - PATH="${HOME}/Library/Python/2.7/bin:${PATH}"
         - MATRIX_EVAL="CC-clang && CXX=clang++"
+
+# Vor dem installieren: Prüfen, ob die Compiler installiert sind
 before_install:
   - eval "${MATRIX_EVAL}"
 
@@ -35,3 +38,35 @@ install:
   - source ~/.profile
   - conan user
   - conan install ..
+  # Auf Linux soll Code Coverage Report ausgeführt werden
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+    cmake -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On .. ;
+    fi
+  # Auf MacOS soll Unit Testing ausgeführt werden
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    cmake -DCMAKE_BUILD_TYPE=Debug .. ;
+    fi
+  # make ist verknüft mit folgendem "script" Eintrag
+  - make
+
+script:
+  # Auf Linux soll Code Coverage Report ausgeführt werden
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+    # Coverage Target bauen
+    make CppTemplate_coverage;
+    fi
+  # Auf MacOS soll Unit Testing ausgeführt werden
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    # Unit Testing Target bauen
+    make CppTemplate_unit_tests;
+    fi
+
+after_success:
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then 
+    # Code Coverage Report ausgeben
+    bash <(curl -s https://codecov.io/bash); 
+    fi
+
+notifications:
+  email:
+    on_success: never
