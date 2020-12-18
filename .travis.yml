@@ -25,7 +25,7 @@ matrix:
       osx_image: xcode10
       env:
         - PATH="${HOME}/Library/Python/2.7/bin:${PATH}"
-        - MATRIX_EVAL="CC-clang && CXX=clang++"
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
 
 # Vor dem installieren: Prüfen, ob die Compiler installiert sind
 before_install:
@@ -63,7 +63,7 @@ script:
 
 after_success:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then 
-    # Code Coverage Report ausgeben
+    # Code Coverage Report an codecov.io pushen
     bash <(curl -s https://codecov.io/bash); 
     fi
 
