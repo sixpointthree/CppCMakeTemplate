@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(PROJECT "BetterProjectStructure")
+set(PROJECT "CppTemplate")
 
 project("${PROJECT}_Project" VERSION 0.12.3 LANGUAGES CXX)
 
@@ -47,6 +47,7 @@ if (USE_GCOV)
 endif()
 
 # Add conan packages
+# Bevor Build: conan install ../12_FinalTemplate/conanfile.txt
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
