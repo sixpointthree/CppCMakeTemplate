@@ -158,3 +158,6 @@ conan.lock
 conanbuildinfo.cmake
 conanbuildinfo.txt
 conaninfo.txt
+
+# Temp Datei
+graph_info.json
