@@ -1,12 +1,12 @@
 ## LINALG -- HEADER ONLY ohne CMakeLists.txt
 # Ordnerpfad speichern
-set(LIBRARY_INCLUDES "linalg/")
+set(LINALG_INCLUDES "linalg/")
 
 # Header-only library einbinden mit "INTERFACE"
 add_library(${LIBRARY_LINALG} INTERFACE)
 
 # Der Library sagen, in welchem Ordner diese Header liegen (Ordnerpfad)
-target_include_directories(${LIBRARY_LINALG} INTERFACE ${LIBRARY_INCLUDES})
+target_include_directories(${LIBRARY_LINALG} INTERFACE ${LINALG_INCLUDES})
 
 
 
