@@ -148,3 +148,13 @@ ipch/
 *.sap
 # Visual Studio Trace Files
 *.e2e
+
+
+################################
+###########  Conan  ############
+################################
+
+conan.lock
+conanbuildinfo.cmake
+conanbuildinfo.txt
+conaninfo.txt
